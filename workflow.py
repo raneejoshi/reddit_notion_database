@@ -46,7 +46,7 @@ def get_subreddits():
     post_data = {'filter': {"property": "Tags", "contains" : "Reddit"}}
     response = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json
     mylist=[]
-    for i in response["results"]:
+    for i in response("results"):
         subreddit=i['Title']
         mylist.append(subreddit)
     return mylist
