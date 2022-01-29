@@ -5,14 +5,13 @@ from datetime import datetime
 import praw
 
 
-NOTION_API_KEY= os.environ['NOTION_API_KEY']
-REDDIT_CLIENT_ID = os.environ['REDDIT_CLIENT_ID']
-REDDIT_CLIENT_SECRET = os.environ['REDDIT_CLIENT_SECRET']
-REDDIT_USER_AGENT = os.environ['REDDIT_USER_AGENT']
+NOTION_API_KEY= 'secret_JycCdih4STec1Ba5OJqiBZdKlcdw8iMzBELV8bVCa6v'
+REDDIT_CLIENT_ID = 'notion'
+REDDIT_CLIENT_SECRET = '9Kps6gibdsm8dlImP9KioZoOIDOVaA'
+REDDIT_USER_AGENT =  'V53TNiGno12ao4EfPItL2A'
 
-DATABASE_KEY = os.environ['DATABASE_KEY']
-PAGE_KEY = os.environ['PAGE_KEY']
-
+DATABASE_KEY = '7cfa100e6ac044ceadc81330482e1b8d'
+PAGE_KEY = '118ad8e790fa439bac32a5d78ff98ef3'
 
 def create_notionpost(title, contenturl, actualurl):
 
@@ -41,12 +40,24 @@ def get_subreddits():
         'Notion-Version': '2021-08-16',
         'Authorization': f"Bearer {NOTION_API_KEY}",
     }
+    
     #response = requests.get(f'https://api.notion.com/v1/blocks/{PAGE_KEY}/children?page_size=10', headers=headers)
     #mylist = response.json()['results'][1]['bulleted_list_item']['text'][0]['plain_text'].split()
     #return mylist
-    post_data = {'filter': {"property": "Source", "contains" : "Reddit"}}
+    post_data = {'filter':
+                 {'and':
+                  [
+                      {"property": "Enabled", 
+                       "checkbox" : {"equals":True}
+                      }, 
+                      {"property": "Source", 
+                       {"equals" : "Reddit"}
+                      }
+                  ]
+                 }
+                }
     response  = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json()
-    #print(response)
+    print(response)
     for i in response["results"]:
         subreddit=i['properties']['Title']['title'][0]['plain_text']
         mylist.append(subreddit)
