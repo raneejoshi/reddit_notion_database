@@ -78,7 +78,8 @@ def reddit_notion(subreddits):
     for subreddit in subreddits:
         try:
             sub=i['Title']
-            test_reddit = reddit.subreddit(sub).top("month", limit = 10)
+            #test_reddit = reddit.subreddit(sub).top("month", limit = 10)
+            test_reddit = reddit.subreddit(subreddit).top("day", limit = 2)
 
             # test_reddit = reddit.multireddit("reactjs", "programming").top("day")
             # ml_subreddit = reddit.subreddit(mysub)
