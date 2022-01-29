@@ -35,7 +35,7 @@ def create_notionpost(title, contenturl, actualurl):
 
 
 ## checks the notion block and retrieve subreddits in form of list of strings
-#mylist=[]
+mylist=[]
 def get_subreddits():
     headers = {
         'Notion-Version': '2021-08-16',
@@ -47,9 +47,9 @@ def get_subreddits():
     post_data = {'filter': {"property": "Tags", "contains" : "Reddit"}}
     mylist  = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json()
     #print(response)
-    #for i in response["results"]:
-        #subreddit=i['Title']
-        #mylist.append(subreddit)
+    for i in response["results"]:
+        subreddit=i['Title']
+        mylist.append(subreddit)
     return mylist
 
 def reddit_notion(subreddits):
@@ -77,9 +77,9 @@ def reddit_notion(subreddits):
                         user_agent= REDDIT_USER_AGENT)
     for subreddit in subreddits:
         try:
-            sub=i['Title']
+            #sub=i['Title']
             #test_reddit = reddit.subreddit(sub).top("month", limit = 10)
-            test_reddit = reddit.subreddit(sub).top("day", limit = 2)
+            test_reddit = reddit.subreddit(subreddit).top("day", limit = 2)
 
             # test_reddit = reddit.multireddit("reactjs", "programming").top("day")
             # ml_subreddit = reddit.subreddit(mysub)
