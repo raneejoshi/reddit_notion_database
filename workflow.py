@@ -45,7 +45,7 @@ def get_subreddits():
     #mylist = response.json()['results'][1]['bulleted_list_item']['text'][0]['plain_text'].split()
     #return mylist
     post_data = {'filter': {"property": "Tags", "contains" : "Reddit"}}
-    mylist  = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json
+    mylist  = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json()
     #print(response)
     #for i in response["results"]:
         #subreddit=i['Title']
