@@ -35,6 +35,7 @@ def create_notionpost(title, contenturl, actualurl):
 
 
 ## checks the notion block and retrieve subreddits in form of list of strings
+mylist=[]
 def get_subreddits():
     headers = {
         'Notion-Version': '2021-08-16',
@@ -45,8 +46,7 @@ def get_subreddits():
     #return mylist
     post_data = {'filter': {"property": "Tags", "contains" : "Reddit"}}
     response = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json
-    mylist=[]
-    for i in response("results"):
+    for i in response["results"]:
         subreddit=i['Title']
         mylist.append(subreddit)
     return mylist
