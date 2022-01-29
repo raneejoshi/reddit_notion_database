@@ -48,7 +48,7 @@ def get_subreddits():
     response  = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json()
     #print(response)
     for i in response["results"]:
-        subreddit=i['Title']
+        subreddit=i['properties']['Title']['title'][0]['plain_text']
         mylist.append(subreddit)
     return mylist
 
