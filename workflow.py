@@ -14,7 +14,7 @@ DATABASE_KEY = os.environ['DATABASE_KEY']
 PAGE_KEY = os.environ['PAGE_KEY']
 
 
-def create_notionpost(title, score, subreddit, contenturl, created_date, actualurl):
+def create_notionpost(title, contenturl, actualurl):
 
     headers = {
         'Authorization': f"Bearer {NOTION_API_KEY}",
@@ -22,13 +22,13 @@ def create_notionpost(title, score, subreddit, contenturl, created_date, actualu
         'Notion-Version': '2021-08-16',
     }
     data = { "parent": { "database_id": DATABASE_KEY }, "properties": { 
-        "title": {"title": [ { "text": { "content": title } } ] },
-        "score": { "number": score },
-        "subreddit": { "select": { "name": subreddit } },
+        "Title": {"title": [ { "text": { "content": title } } ] },
+        #"score": { "number": score },
+        #"subreddit": { "select": { "name": subreddit } },
         # "subreddit": { "rich_text": [ { "text": { "content": subreddit } } ] },
-        "contenturl": {"url": contenturl}, 
-        "actualurl": {"url": actualurl}, 
-        "created": {"date" : {"start": created_date}}, 
+        "ContentURL": {"url": contenturl}, 
+        "Link": {"url": actualurl}, 
+        #"created": {"date" : {"start": created_date}}, 
     },  }
 
     requests.post('https://api.notion.com/v1/pages', headers=headers, json=data)
@@ -43,7 +43,13 @@ def get_subreddits():
     response = requests.get(f'https://api.notion.com/v1/blocks/{PAGE_KEY}/children?page_size=10', headers=headers)
     mylist = response.json()['results'][1]['bulleted_list_item']['text'][0]['plain_text'].split()
     return mylist
-
+    post_data = {'filter': {"property": "Tags", "contains" : "Reddit"}}
+    response = requests.post(f'https://api.notion.com/v1/databases/{PAGE_KEY}/query', data=json.dumps(post_data), headers=headers).json
+    mylist=[]
+    for i in response["results"]:
+        subreddit=i['Title']
+        mylist.append(subreddit)
+    return mylist
 
 def reddit_notion(subreddits):
 
@@ -60,7 +66,7 @@ def reddit_notion(subreddits):
 
     for i in myneeded:
         try:
-            myurl = i['properties']['actualurl']['url']
+            myurl = i['properties']['Link']['url']
             myset.add(myurl)
         except:
             pass
@@ -76,7 +82,7 @@ def reddit_notion(subreddits):
             # ml_subreddit = reddit.subreddit(mysub)
             for post in test_reddit:
                 if ("https://www.reddit.com" + post.permalink) not in myset:
-                    create_notionpost(post.title, post.score, subreddit, post.url, datetime.fromtimestamp(post.created).strftime("%Y-%m-%d"), ("https://www.reddit.com" + post.permalink))
+                    create_notionpost(post.title, post.url, ("https://www.reddit.com" + post.permalink))
         except:
             pass
 
