@@ -51,8 +51,7 @@ def get_subreddits():
                        "checkbox" : {"equals":True}
                       }, 
                       {"property": "Source", 
-                       {"equals" : "Reddit"}
-                      }
+                       "equals" : "Reddit"}
                   ]
                  }
                 }
