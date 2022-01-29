@@ -35,7 +35,7 @@ def create_notionpost(title, contenturl, actualurl):
 
 
 ## checks the notion block and retrieve subreddits in form of list of strings
-mylist=[]
+#mylist=[]
 def get_subreddits():
     headers = {
         'Notion-Version': '2021-08-16',
@@ -50,7 +50,7 @@ def get_subreddits():
     #for i in response["results"]:
         #subreddit=i['Title']
         #mylist.append(subreddit)
-    mylist
+    return mylist
 
 def reddit_notion(subreddits):
 
