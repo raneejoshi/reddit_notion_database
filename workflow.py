@@ -114,27 +114,9 @@ def reddit_notion(subreddits, series):
             pass
 
 #targetlist = get_subreddits()
-targetlist = [http://feeds.bbci.co.uk/sport/0/formula1/rss.xml, 
-              http://feeds2.feedburner.com/f1fanatic, 
-              https://f1bythenumbers.com/feed/, 
-              https://www.formula1.com/content/fom-website/en/latest.articlefeed.xml, 
-              https://www.grandprix.com/rss.xml,
-              https://www.racecar-engineering.com/feed/,
-              https://wwww.autosport.com/rss/feed/f1,
-              https://wwww.f1-fansite.com/feed,
-              https://wwww.f1technical.net/rss/news.xml,
-              https://wwww.fia.com/rss/press-release,
-              https://wwww.planetf1.com/news/feed/,
-              https://wwww.reddit.com/r/formula1/.rss,
-              https://wwww.wtf.1.com/rss]
 
+targetlist = [f1feederseries, f1feederseriesmemes]
+reddit_notion(targetlist, "Feeder Series")
+
+targetlist = [F1Technical, MotorsportJobs, MotorsportReplays, Team_Quadrant, TeamQuadrant, theartofracing]
 reddit_notion(targetlist, "Formula 1")
-
-targetlist = [https://www.autosport.com/rss/feed/w]
-reddit_notion(targetlist, "W Series")
-
-targetlist = [https://wwww.autosport.com/rss/feed/f2]
-reddit_notion(targetlist, "Formula 2")
-
-targetlist = [https://wwww.autosport.com/rss/feed/f3]
-reddit_notion(targetlist, "Formula 3")
