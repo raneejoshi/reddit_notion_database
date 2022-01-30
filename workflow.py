@@ -12,7 +12,7 @@ REDDIT_USER_AGENT = os.environ['REDDIT_USER_AGENT']
 DATABASE_KEY = os.environ['DATABASE_KEY']
 PAGE_KEY = os.environ['PAGE_KEY']
 
-def create_notionpost(title, contenturl, actualurl):
+def create_notionpost(title, contenturl, actualurl, series):
 
     headers = {
         'Authorization': f"Bearer {NOTION_API_KEY}",
@@ -31,7 +31,7 @@ def create_notionpost(title, contenturl, actualurl):
         "ContentURL": {"url": contenturl}, 
         "Link": {"url": actualurl},
         "Tags": {"multi_select": [{"name": "👨‍👩‍👧‍👦 Community"}]},
-        "Series":{"multi_select": [{"name": "Formula 1"}]}
+        "Series":{"multi_select": [{"name": series}]}
         #"created": {"date" : {"start": created_date}}, 
     },  }
 
@@ -71,7 +71,7 @@ def get_subreddits():
     return mylist
     #print(mylist)
     
-def reddit_notion(subreddits):
+def reddit_notion(subreddits, series):
 
     ## first: retrieve database and create searchable set 
 
@@ -109,9 +109,32 @@ def reddit_notion(subreddits):
                 #print(post)
                 if ("https://www.reddit.com" + post.permalink) not in myset:
                     #print(myset)
-                    create_notionpost(post.title, post.url, ("https://www.reddit.com" + post.permalink))
+                    create_notionpost(post.title, post.url, ("https://www.reddit.com" + post.permalink), series)
         except:
             pass
 
-targetlist = get_subreddits()
-reddit_notion(targetlist)
+#targetlist = get_subreddits()
+targetlist = [http://feeds.bbci.co.uk/sport/0/formula1/rss.xml, 
+              http://feeds2.feedburner.com/f1fanatic, 
+              https://f1bythenumbers.com/feed/, 
+              https://www.formula1.com/content/fom-website/en/latest.articlefeed.xml, 
+              https://www.grandprix.com/rss.xml,
+              https://www.racecar-engineering.com/feed/,
+              https://wwww.autosport.com/rss/feed/f1,
+              https://wwww.f1-fansite.com/feed,
+              https://wwww.f1technical.net/rss/news.xml,
+              https://wwww.fia.com/rss/press-release,
+              https://wwww.planetf1.com/news/feed/,
+              https://wwww.reddit.com/r/formula1/.rss,
+              https://wwww.wtf.1.com/rss]
+
+reddit_notion(targetlist, "Formula 1")
+
+targetlist = [https://www.autosport.com/rss/feed/w]
+reddit_notion(targetlist, "W Series")
+
+targetlist = [https://wwww.autosport.com/rss/feed/f2]
+reddit_notion(targetlist, "Formula 2")
+
+targetlist = [https://wwww.autosport.com/rss/feed/f3]
+reddit_notion(targetlist, "Formula 3")
