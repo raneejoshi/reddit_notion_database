@@ -115,8 +115,8 @@ def reddit_notion(subreddits, series):
 
 #targetlist = get_subreddits()
 
-targetlist = [f1feederseries, f1feederseriesmemes]
+targetlist = ["f1feederseries", "f1feederseriesmemes"]
 reddit_notion(targetlist, "Feeder Series")
 
-targetlist = [F1Technical, MotorsportJobs, MotorsportReplays, Team_Quadrant, TeamQuadrant, theartofracing]
+targetlist = ["F1Technical", "MotorsportJobs", "MotorsportReplays", "Team_Quadrant", "TeamQuadrant", "theartofracing"]
 reddit_notion(targetlist, "Formula 1")
