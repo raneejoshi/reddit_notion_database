@@ -12,7 +12,7 @@ REDDIT_USER_AGENT = os.environ['REDDIT_USER_AGENT']
 DATABASE_KEY = os.environ['DATABASE_KEY']
 PAGE_KEY = os.environ['PAGE_KEY']
 
-def create_notionpost(title, contenturl, actualurl, series):
+def create_notionpost(title, score, subreddit, contenturl, created_date, actualurl, series):
 
     headers = {
         'Authorization': f"Bearer {NOTION_API_KEY}",
@@ -25,14 +25,14 @@ def create_notionpost(title, contenturl, actualurl, series):
         "emoji": '👾'},
         "properties": { 
         "Title": {"title": [ { "text": { "content": title } } ] },
-        #"score": { "number": score },
-        #"subreddit": { "select": { "name": subreddit } },
+        "Views": { "number": score },
+        "Team/People": { "multi_select": [{ "name": subreddit }] },
         # "subreddit": { "rich_text": [ { "text": { "content": subreddit } } ] },
         "ContentURL": {"url": contenturl}, 
         "Link": {"url": actualurl},
         "Tags": {"multi_select": [{"name": "👨‍👩‍👧‍👦 Community"}]},
         "Series":{"multi_select": [{"name": series}]}
-        #"created": {"date" : {"start": created_date}}, 
+        "Posted On": {"date" : {"start": created_date}}, 
     },  
        "children": [
     #{
@@ -134,7 +134,7 @@ def reddit_notion(subreddits, series):
                 #print(post)
                 if ("https://www.reddit.com" + post.permalink) not in myset:
                     #print(myset)
-                    create_notionpost(post.title, post.url, ("https://www.reddit.com" + post.permalink), series)
+                    create_notionpost(post.title, post.score, subreddit, post.url,datetime.fromtimestamp(post.created).strftime("%Y-%m-%d"), ("https://www.reddit.com" + post.permalink), series)
         except:
             pass
 
