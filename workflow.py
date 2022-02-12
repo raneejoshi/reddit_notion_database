@@ -42,8 +42,8 @@ def create_notionpost(title, contenturl, actualurl, series):
     #    "text": [{ "type": "text", "text": { "content": "Twitter" } }]}
     #},
     {
-      "type": "embed",
-      "embed": {
+      "type": "bookmark",
+      "bookmark": {
         "url": actualurl
       }
     },
