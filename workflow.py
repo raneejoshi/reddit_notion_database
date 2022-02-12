@@ -44,7 +44,7 @@ def create_notionpost(title, contenturl, actualurl, series):
     {
       "type": "embed",
       "embed": {
-        "url": link
+        "url": actualurl
       }
     },
     {
