@@ -33,7 +33,32 @@ def create_notionpost(title, contenturl, actualurl, series):
         "Tags": {"multi_select": [{"name": "👨‍👩‍👧‍👦 Community"}]},
         "Series":{"multi_select": [{"name": series}]}
         #"created": {"date" : {"start": created_date}}, 
-    },  }
+    },  
+       "children": [
+    #{
+    #  "object": "block",
+    #  "type": "paragraph",
+    #  "paragraph": {
+    #    "text": [{ "type": "text", "text": { "content": "Twitter" } }]}
+    #},
+    {
+      "type": "embed",
+      "embed": {
+        "url": link
+      }
+    },
+    {
+      "object": "block",
+      "type": "image",
+      "image": {
+          "caption": [],
+          "type": "external",
+          "external": {
+              "url": contenturl
+          }
+      }
+    }
+  ]}
 
     requests.post(f'https://api.notion.com/v1/pages', headers=headers, data=json.dumps(post_data)).json()
     #if c.status_code != 200:
