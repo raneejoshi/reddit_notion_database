@@ -31,8 +31,8 @@ def create_notionpost(title, score, subreddit, contenturl, created_date, actualu
         "ContentURL": {"url": contenturl}, 
         "Link": {"url": actualurl},
         "Tags": {"multi_select": [{"name": "👨‍👩‍👧‍👦 Community"}]},
-        "Series":{"multi_select": [{"name": series}]}
-        "Posted On": {"date" : {"start": created_date}}, 
+        "Series":{"multi_select": [{"name": series}]},
+        "Posted On": {"date" : {"start": created_date}}
     },  
        "children": [
     #{
