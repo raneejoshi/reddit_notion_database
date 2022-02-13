@@ -134,7 +134,7 @@ def reddit_notion(subreddits, series):
                 #print(post)
                 if ("https://www.reddit.com" + post.permalink) not in myset:
                     #print(myset)
-                    create_notionpost(post.title, post.score, subreddit, post.url,datetime.fromtimestamp(post.created).strftime("%Y-%m-%d"), ("https://www.reddit.com" + post.permalink), series)
+                    create_notionpost(post.title, post.score, subreddit, post.url,datetime.fromtimestamp(post.created).strftime("%Y-%m-%dT%H:%M:%SZ"), ("https://www.reddit.com" + post.permalink), series)
         except:
             pass
 
