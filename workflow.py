@@ -29,10 +29,10 @@ def create_notionpost(title, score, subreddit, contenturl, created_date, actualu
         "Team/People": { "multi_select": [{ "name": subreddit }] },
         # "subreddit": { "rich_text": [ { "text": { "content": subreddit } } ] },
         "ContentURL": {"url": contenturl}, 
-        "Link": {"url": actualurl},
+        "URL": {"url": actualurl},
         "Tags": {"multi_select": [{"name": "👨‍👩‍👧‍👦 Community"}]},
         "Series":{"multi_select": [{"name": series}]},
-        "Posted On": {"date" : {"start": created_date}}
+        "Publish Date": {"date" : {"start": created_date}}
     },  
        "children": [
     #{
